@@ -39,3 +39,37 @@ iam/
 ```
 
 ---
+
+## Module 02 - S3 Bucket (Simple Storage Service) ✅
+
+**Date:** 2026-04-06
+
+### What was done
+- Created and deployed S3 bucket `notestack-files-sdlc-2026` in ap-south-1
+- Set up folder structure: `users/{userId}/notes/`
+- Built and tested 4 Node.js scripts: upload, download, list, pre-signed URL generation
+- All public access blocked on the bucket
+
+### Resources Created
+| Resource | Name | Purpose |
+|----------|------|---------|
+| S3 Bucket | `notestack-files-sdlc-2026` | File storage for student notes and uploads |
+
+### Key Concepts Covered
+- **Bucket** - top-level container, globally unique name
+- **Object** - a file stored in a bucket (Key + Value + Metadata)
+- **Prefix** - simulated folder paths using `/` in key names
+- **Pre-signed URL** - temporary secure link for upload/download without AWS credentials
+- **Bucket Policy** - JSON rules for bucket-level access control
+
+### Files
+```
+s3/
+├── setup-s3.sh       # Creates bucket and folder structure
+├── upload.js         # Upload a local file to S3
+├── download.js       # Download and display a file from S3
+├── list.js           # List files under a prefix/folder
+└── presigned-url.js  # Generate a temporary pre-signed URL
+```
+
+---

@@ -1,0 +1,11 @@
+{
+  "name": "notestack",
+  "version": "1.0.0",
+  "description": "NoteStack - Serverless Student Notes & File Sharing Platform on AWS",
+  "author": "Harishankar",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1024.0",
+    "@aws-sdk/s3-request-presigner": "^3.1024.0"
+  }
+}
