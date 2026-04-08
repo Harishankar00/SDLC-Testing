@@ -73,3 +73,39 @@ s3/
 ```
 
 ---
+
+## Module 03 - DynamoDB (NoSQL Database) ✅
+
+**Date:** 2026-04-06
+
+### What was done
+- Created new DynamoDB table `NoteStack-Notes-SDLC` in ap-south-1
+- Partition Key: `userId` (String), Sort Key: `noteId` (String)
+- On-Demand billing mode (pay per request)
+- Built and tested 5 CRUD scripts: PutItem, GetItem, Query, UpdateItem, DeleteItem
+
+### Resources Created
+| Resource | Name | Purpose |
+|----------|------|---------|
+| DynamoDB Table | `NoteStack-Notes-SDLC` | Stores all user notes (userId + noteId composite key) |
+
+### Key Concepts Covered
+- **Table** - collection of data, only primary key defined at creation
+- **Item** - a single row, max 400 KB
+- **Partition Key** - groups items for fast lookup (userId)
+- **Sort Key** - orders items within a partition (noteId)
+- **GSI** - query data by a different key than the primary key
+- **On-Demand vs Provisioned** - pay per request vs pre-set capacity
+
+### Files
+```
+dynamodb/
+├── setup-dynamodb.sh  # Creates the DynamoDB table
+├── putItem.js         # Create a note
+├── getItem.js         # Read one note by userId + noteId
+├── query.js           # Read all notes for a user
+├── updateItem.js      # Update a note's title and content
+└── deleteItem.js      # Delete a note
+```
+
+---
