@@ -56,43 +56,67 @@ function Auth({ onLogin }) {
   };
 
   return (
-    <div className="auth-container">
-      <h1 className="auth-title">NoteStack</h1>
-      <p className="auth-subtitle">Student Notes & File Sharing Platform</p>
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <div className="auth-logo">N</div>
+        <h1 className="auth-title">NoteStack</h1>
+        <p className="auth-subtitle">Student Notes & File Sharing Platform</p>
 
-      <div className="auth-tabs">
-        <button className={tab === "login" ? "active" : ""} onClick={() => { setTab("login"); clearMessages(); }}>Sign In</button>
-        <button className={tab === "signup" ? "active" : ""} onClick={() => { setTab("signup"); clearMessages(); }}>Sign Up</button>
-        <button className={tab === "verify" ? "active" : ""} onClick={() => { setTab("verify"); clearMessages(); }}>Verify</button>
+        <div className="auth-tabs">
+          <button className={tab === "login" ? "active" : ""} onClick={() => { setTab("login"); clearMessages(); }}>Sign In</button>
+          <button className={tab === "signup" ? "active" : ""} onClick={() => { setTab("signup"); clearMessages(); }}>Sign Up</button>
+          <button className={tab === "verify" ? "active" : ""} onClick={() => { setTab("verify"); clearMessages(); }}>Verify</button>
+        </div>
+
+        {message && <div className="auth-message success">{message}</div>}
+        {error && <div className="auth-message error">{error}</div>}
+
+        {tab === "login" && (
+          <form onSubmit={handleSignIn} key="login">
+            <div className="input-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className="input-group">
+              <label>Password</label>
+              <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <button type="submit" disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
+          </form>
+        )}
+
+        {tab === "signup" && (
+          <form onSubmit={handleSignUp} key="signup">
+            <div className="input-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} required />
+            </div>
+            <div className="input-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className="input-group">
+              <label>Password</label>
+              <input type="password" placeholder="Min 8 chars, upper, lower, number, symbol" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <button type="submit" disabled={loading}>{loading ? "Creating account..." : "Create Account"}</button>
+          </form>
+        )}
+
+        {tab === "verify" && (
+          <form onSubmit={handleVerify} key="verify">
+            <div className="input-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className="input-group">
+              <label>Verification Code</label>
+              <input type="text" placeholder="Enter 6-digit code from email" value={code} onChange={(e) => setCode(e.target.value)} required />
+            </div>
+            <button type="submit" disabled={loading}>{loading ? "Verifying..." : "Verify Email"}</button>
+          </form>
+        )}
       </div>
-
-      {message && <div className="auth-message success">{message}</div>}
-      {error && <div className="auth-message error">{error}</div>}
-
-      {tab === "login" && (
-        <form onSubmit={handleSignIn}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          <button type="submit" disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
-        </form>
-      )}
-
-      {tab === "signup" && (
-        <form onSubmit={handleSignUp}>
-          <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required />
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Password (8+ chars, upper, lower, number, symbol)" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          <button type="submit" disabled={loading}>{loading ? "Signing up..." : "Sign Up"}</button>
-        </form>
-      )}
-
-      {tab === "verify" && (
-        <form onSubmit={handleVerify}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="text" placeholder="6-digit verification code" value={code} onChange={(e) => setCode(e.target.value)} required />
-          <button type="submit" disabled={loading}>{loading ? "Verifying..." : "Verify Email"}</button>
-        </form>
-      )}
     </div>
   );
 }

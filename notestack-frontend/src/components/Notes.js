@@ -85,6 +85,7 @@ function Notes({ onLogout }) {
     setEditingNote(note);
     setTitle(note.title);
     setContent(note.content);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const cancelEdit = () => {
@@ -104,11 +105,20 @@ function Notes({ onLogout }) {
     return div.innerHTML;
   };
 
+  const getInitials = (name) => {
+    if (!name) return "?";
+    return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
+  };
+
   return (
     <div className="notes-container">
       <header className="notes-header">
-        <h1>NoteStack</h1>
+        <div className="notes-header-left">
+          <div className="header-logo">N</div>
+          <h1>NoteStack</h1>
+        </div>
         <div className="user-info">
+          <div className="user-avatar">{getInitials(user?.name)}</div>
           <span>{user?.name || user?.email}</span>
           <button onClick={handleLogout} className="btn-logout">Logout</button>
         </div>
@@ -120,24 +130,33 @@ function Notes({ onLogout }) {
         <h2>{editingNote ? "Edit Note" : "Create Note"}</h2>
         <input
           type="text"
-          placeholder="Title"
+          placeholder="Give your note a title..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
         <textarea
-          placeholder="Content"
+          placeholder="Write your thoughts here..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={4}
           required
         />
         {!editingNote && (
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            accept=".pdf,.jpg,.png,.docx,.txt"
-          />
+          <div className="file-upload-area">
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              accept=".pdf,.jpg,.png,.docx,.txt"
+            />
+            <p className="file-upload-text">
+              {file ? (
+                <span className="selected">{file.name}</span>
+              ) : (
+                "Drop a file here or click to upload (PDF, JPG, PNG, DOCX, TXT)"
+              )}
+            </p>
+          </div>
         )}
         <div className="form-actions">
           <button type="submit" disabled={loading}>
@@ -150,8 +169,13 @@ function Notes({ onLogout }) {
       </form>
 
       <div className="notes-list">
-        <h2>Your Notes ({notes.length})</h2>
-        {notes.length === 0 && <p className="no-notes">No notes yet. Create your first note!</p>}
+        <h2>Your Notes <span className="notes-count">{notes.length}</span></h2>
+        {notes.length === 0 && (
+          <div className="no-notes">
+            <div className="no-notes-icon">&#128221;</div>
+            <p>No notes yet. Create your first note above!</p>
+          </div>
+        )}
         {notes
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((note) => (
@@ -164,7 +188,7 @@ function Notes({ onLogout }) {
               </div>
             </div>
             <p className="note-content">{escapeHtml(note.content)}</p>
-            {note.fileKey && <p className="note-file">Attachment: {note.fileKey.split("/").pop()}</p>}
+            {note.fileKey && <p className="note-file">{note.fileKey.split("/").pop()}</p>}
             <p className="note-date">
               {new Date(note.createdAt).toLocaleString()}
               {note.updatedAt && ` (edited ${new Date(note.updatedAt).toLocaleString()})`}
