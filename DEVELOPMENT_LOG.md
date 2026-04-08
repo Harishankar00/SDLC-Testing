@@ -148,3 +148,42 @@ cognito/
 ```
 
 ---
+
+## Module 05 - Lambda (Serverless Functions) ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Created and deployed 5 Lambda functions to AWS (Node.js 20.x runtime)
+- Each function handles one API operation with proper error handling and CORS
+- Functions extract userId from Cognito authorizer claims (with fallback to body for testing)
+- All functions tested via AWS CLI `lambda invoke`
+
+### Resources Created
+| Function | Name | Purpose |
+|----------|------|---------|
+| CreateNote | `NoteStack-CreateNote-SDLC` | Create a new note in DynamoDB |
+| GetNotes | `NoteStack-GetNotes-SDLC` | Query all notes for a user |
+| UpdateNote | `NoteStack-UpdateNote-SDLC` | Update title and content of a note |
+| DeleteNote | `NoteStack-DeleteNote-SDLC` | Delete a note, returns old item |
+| GenerateUploadUrl | `NoteStack-GenerateUploadUrl-SDLC` | Generate S3 pre-signed URL for file upload |
+
+### Key Concepts Covered
+- **Handler** - entry point AWS calls (`index.handler`)
+- **Event** - JSON input from API Gateway (body, headers, queryStringParameters)
+- **Execution Role** - `NoteStack-Lambda-Role` gives access to DynamoDB + S3
+- **Cold Start** - first invocation has ~200-500ms extra delay
+- **Response format** - must return `{ statusCode, headers, body: JSON.stringify(...) }`
+
+### Files
+```
+lambda/
+├── deploy-lambdas.sh          # Deploys all 5 functions to AWS
+├── CreateNote/index.js        # POST - create note
+├── GetNotes/index.js          # GET - query user's notes
+├── UpdateNote/index.js        # PUT - update note
+├── DeleteNote/index.js        # DELETE - delete note
+└── GenerateUploadUrl/index.js # POST - generate S3 upload URL
+```
+
+---

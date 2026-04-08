@@ -1,0 +1,14 @@
+{
+  "name": "notestack",
+  "version": "1.0.0",
+  "description": "NoteStack - Serverless Student Notes & File Sharing Platform on AWS",
+  "author": "Harishankar",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1026.0",
+    "@aws-sdk/client-dynamodb": "^3.1024.0",
+    "@aws-sdk/client-s3": "^3.1024.0",
+    "@aws-sdk/lib-dynamodb": "^3.1024.0",
+    "@aws-sdk/s3-request-presigner": "^3.1024.0"
+  }
+}
