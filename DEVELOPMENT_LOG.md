@@ -304,3 +304,50 @@ cloudwatch/
 ```
 
 ---
+
+## Module 09 - React Frontend ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Built React frontend with auth flow (Sign In, Sign Up, Verify Email)
+- Notes dashboard with full CRUD (create, read, update, delete)
+- File upload via S3 pre-signed URLs
+- Cognito auth directly from browser using fetch API
+- Token stored in localStorage, decoded for user info
+- XSS prevention via HTML escaping in note rendering
+
+### Features
+| Feature | Description |
+|---------|-------------|
+| Sign Up | Register with email, password, name |
+| Verify Email | Enter 6-digit code from email |
+| Sign In | Authenticate and store JWT tokens |
+| Create Note | Title + content + optional file attachment |
+| View Notes | List all notes sorted by date |
+| Edit Note | Update title and content |
+| Delete Note | Remove with confirmation |
+| File Upload | Pre-signed URL upload to S3 |
+| Logout | Clear tokens from localStorage |
+
+### Files
+```
+notestack-frontend/
+├── public/index.html              # HTML entry point
+├── src/
+│   ├── index.js                   # React entry point
+│   ├── App.js                     # Root component (auth routing)
+│   ├── App.css                    # Global styles
+│   ├── config.js                  # API URL and Cognito IDs
+│   ├── api/
+│   │   ├── auth.js                # Cognito auth functions
+│   │   └── notes.js               # Notes API + S3 upload functions
+│   └── components/
+│       ├── Auth.js                # Login/Signup/Verify forms
+│       ├── Auth.css               # Auth styles
+│       ├── Notes.js               # Notes dashboard with CRUD
+│       └── Notes.css              # Notes styles
+└── package.json
+```
+
+---
