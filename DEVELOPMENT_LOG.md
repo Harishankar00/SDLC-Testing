@@ -187,3 +187,52 @@ lambda/
 ```
 
 ---
+
+## Module 06 - API Gateway (REST APIs) ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Created REST API `NoteStack-API-SDLC` with Regional endpoint
+- Created `/notes` and `/notes/upload-url` resources
+- Linked 5 HTTP methods to their Lambda functions (POST, GET, PUT, DELETE)
+- Created Cognito Authorizer `NoteStack-CognitoAuth-SDLC` on all methods
+- Enabled CORS with OPTIONS mock integration on both resources
+- Deployed to `dev` stage
+- Tested: 401 without token, 201 with valid token
+
+### Resources Created
+| Resource | Name | Details |
+|----------|------|---------|
+| REST API | `NoteStack-API-SDLC` | ID: `a1ebt6lln9` |
+| Authorizer | `NoteStack-CognitoAuth-SDLC` | Cognito User Pool authorizer |
+| Stage | `dev` | Deployment stage |
+
+### API Endpoints
+| Method | Path | Lambda |
+|--------|------|--------|
+| POST | /notes | NoteStack-CreateNote-SDLC |
+| GET | /notes | NoteStack-GetNotes-SDLC |
+| PUT | /notes | NoteStack-UpdateNote-SDLC |
+| DELETE | /notes | NoteStack-DeleteNote-SDLC |
+| POST | /notes/upload-url | NoteStack-GenerateUploadUrl-SDLC |
+
+**Invoke URL:** `https://a1ebt6lln9.execute-api.ap-south-1.amazonaws.com/dev`
+
+### Key Concepts Covered
+- **REST API** - set of HTTP endpoints connected to Lambda via API Gateway
+- **Resource** - URL path (`/notes`, `/notes/upload-url`)
+- **Method** - HTTP verb on a resource (GET, POST, PUT, DELETE)
+- **Integration** - connection between method and Lambda (AWS_PROXY)
+- **Authorizer** - Cognito validates the Authorization header before Lambda runs
+- **Stage** - deployment environment (`dev`, `prod`)
+- **CORS** - browser security requiring explicit cross-origin permission
+
+### Files
+```
+api-gateway/
+├── setup-api-gateway.sh  # Creates API, resources, methods, authorizer, CORS, deploys
+└── test-api.sh           # Tests all endpoints with Cognito auth
+```
+
+---
