@@ -236,3 +236,34 @@ api-gateway/
 ```
 
 ---
+
+## Module 07 - Secrets Manager ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Created secret `notestack/config-sdlc` with 3 key-value pairs
+- Built and tested scripts to read and update secrets
+- Update script preserves all existing keys (read-modify-write pattern)
+
+### Resources Created
+| Resource | Name | Keys |
+|----------|------|------|
+| Secret | `notestack/config-sdlc` | NOTIFICATION_API_KEY, APP_SECRET, ALLOWED_FILE_TYPES |
+
+### Key Concepts Covered
+- **Secret** - encrypted key-value data, retrieved at runtime via API
+- **Secret Version** - AWS keeps old versions (AWSCURRENT, AWSPREVIOUS) for rollback
+- **Auto Rotation** - auto-change secrets on a schedule for security
+- **Caching** - cache secrets outside Lambda handler to survive warm starts
+- **Read-modify-write** - always include ALL keys when updating, or others get deleted
+
+### Files
+```
+secrets-manager/
+├── setup-secret.sh    # Creates the secret with initial values
+├── readSecret.js      # Read and display secret values
+└── updateSecret.js    # Update a specific key (preserves others)
+```
+
+---
