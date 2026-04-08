@@ -109,3 +109,42 @@ dynamodb/
 ```
 
 ---
+
+## Module 04 - Cognito (User Authentication) ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Created new User Pool `NoteStack-Users-SDLC` with email sign-in
+- Created App Client `NoteStack-WebApp-SDLC` (no client secret, for frontend use)
+- Built and tested 6 auth scripts: signUp, confirmSignUp, signIn, getUser, resetPassword, decodeToken
+- Tested full auth flow: sign up -> confirm -> sign in -> decode JWT
+
+### Resources Created
+| Resource | Name | ID |
+|----------|------|----|
+| User Pool | `NoteStack-Users-SDLC` | `ap-south-1_MLQ6Ufbxy` |
+| App Client | `NoteStack-WebApp-SDLC` | `6f0nh23edpc0idlfjkr8no45h2` |
+
+### Key Concepts Covered
+- **User Pool** - managed user directory with password policies and email verification
+- **App Client** - configuration representing your app, provides Client ID
+- **ID Token** - contains user info (name, email, sub), sent in API Authorization header
+- **Access Token** - proves user is authenticated, used for getting user profile
+- **Refresh Token** - silently renews expired tokens (lasts 30 days)
+- **sub** - unique user ID from Cognito, used as userId in DynamoDB (not email)
+
+### Files
+```
+cognito/
+├── setup-cognito.sh   # Creates User Pool and App Client
+├── config.js          # Pool ID and Client ID configuration
+├── signUp.js          # Register a new user
+├── confirmSignUp.js   # Verify email with 6-digit code
+├── signIn.js          # Sign in and get tokens
+├── getUser.js         # Get user info using Access Token
+├── resetPassword.js   # Forgot + confirm password reset
+└── decodeToken.js     # Decode JWT to read payload
+```
+
+---
