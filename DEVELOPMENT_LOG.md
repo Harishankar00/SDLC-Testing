@@ -267,3 +267,40 @@ secrets-manager/
 ```
 
 ---
+
+## Module 08 - CloudWatch (Monitoring & Logging) ✅
+
+**Date:** 2026-04-08
+
+### What was done
+- Created SNS topic `NoteStack-Alerts-SDLC` for alarm notifications
+- Created CloudWatch alarm `NoteStack-CreateNote-HighErrors-SDLC` (triggers when errors > 5 in 5 min)
+- Created CloudWatch dashboard `NoteStack-Dashboard-SDLC` with 3 widgets (Invocations, Errors, Duration)
+- Built scripts to view Lambda logs and publish custom metrics
+- Tested custom metric publish and log retrieval
+
+### Resources Created
+| Resource | Name | Purpose |
+|----------|------|---------|
+| SNS Topic | `NoteStack-Alerts-SDLC` | Email notifications for alarms |
+| Alarm | `NoteStack-CreateNote-HighErrors-SDLC` | Fires when CreateNote errors > 5 in 5 min |
+| Dashboard | `NoteStack-Dashboard-SDLC` | Visual overview of all Lambda metrics |
+
+### Key Concepts Covered
+- **Logs** - every `console.log()` in Lambda goes to CloudWatch automatically
+- **Log Group** - one per Lambda function, contains Log Streams
+- **Metrics** - numerical measurements (Invocations, Duration, Errors, Throttles)
+- **Alarms** - automated alerts when a metric crosses a threshold (OK, ALARM, INSUFFICIENT_DATA)
+- **Dashboard** - visual board with graphs for all Lambda metrics
+- **Custom Metrics** - publish app-specific metrics (e.g., notes created per hour)
+- **REPORT line** - Lambda auto-logs duration, memory used, init duration (cold start indicator)
+
+### Files
+```
+cloudwatch/
+├── setup-cloudwatch.sh  # Creates SNS topic, alarm, and dashboard
+├── viewLogs.js          # View recent Lambda logs
+└── customMetric.js      # Publish custom metrics to CloudWatch
+```
+
+---
