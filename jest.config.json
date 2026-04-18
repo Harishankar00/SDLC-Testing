@@ -1,0 +1,6 @@
+{
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/tests/**/*.test.js"],
+  "verbose": true,
+  "testPathIgnorePatterns": ["/node_modules/", "/notestack-frontend/"]
+}

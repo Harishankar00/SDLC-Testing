@@ -1,0 +1,65 @@
+name: CI — Test & Deploy NoteStack
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "20"
+  AWS_REGION: ap-south-1
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: Run the 15 Jest tests
+  # ──────────────────────────────────────────────
+  test:
+    name: Run Jest Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests
+        run: npm test
+
+  # ──────────────────────────────────────────────
+  # Job 2: Deploy Lambdas to AWS (only on push to main, after tests pass)
+  # ──────────────────────────────────────────────
+  deploy:
+    name: Deploy Lambdas to AWS
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Make deploy script executable
+        run: chmod +x lambda/deploy-lambdas.sh
+
+      - name: Deploy all 5 Lambda functions
+        run: bash lambda/deploy-lambdas.sh
