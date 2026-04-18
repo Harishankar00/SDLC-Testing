@@ -4,6 +4,9 @@
   "description": "NoteStack - Serverless Student Notes & File Sharing Platform on AWS",
   "author": "Harishankar",
   "license": "ISC",
+  "scripts": {
+    "test": "jest --config jest.config.json"
+  },
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.1026.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1026.0",
@@ -12,5 +15,9 @@
     "@aws-sdk/client-secrets-manager": "^3.1026.0",
     "@aws-sdk/lib-dynamodb": "^3.1024.0",
     "@aws-sdk/s3-request-presigner": "^3.1024.0"
+  },
+  "devDependencies": {
+    "aws-sdk-client-mock": "^4.1.0",
+    "jest": "^29.7.0"
   }
 }
